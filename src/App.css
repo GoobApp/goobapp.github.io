@@ -95,6 +95,7 @@
   height: 50px;
   background-color: gray;
   aspect-ratio: 1/1;
+  background-size: cover;
   border-radius: 100%;
   justify-self: end;
   margin-left: auto;
