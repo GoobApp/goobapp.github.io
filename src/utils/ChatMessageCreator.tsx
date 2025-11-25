@@ -1,23 +1,26 @@
-import ChatMessageObject from '../types/ChatMessageObject';
+import ChatMessageObject from "../types/ChatMessageObject";
 
-const createChatObject = ({newUserDisplayName, newUserID, newUserProfilePicture, newUserContent}
-    : {
-        newUserDisplayName: string,
-        newUserID: string,
-        newUserProfilePicture: string | null,
-        newUserContent: string
-    }
-) => {
-    let inputObject = {
-        userDisplayName: newUserDisplayName,
-        userID: newUserID,
-        userProfilePicture: newUserProfilePicture,
-        userContent: newUserContent,
-        messageTime: new Date(),
-        messageId: Date.now().toString() // TODO: Change
-    } as ChatMessageObject;
+const createChatObject = ({
+  newUserDisplayName,
+  newUserID,
+  newUserProfilePicture,
+  newMessageContent: newUserContent,
+}: {
+  newUserDisplayName: string;
+  newUserID: string;
+  newUserProfilePicture: string | null;
+  newMessageContent: string;
+}) => {
+  let inputObject = {
+    userDisplayName: newUserDisplayName,
+    userID: newUserID,
+    userProfilePicture: newUserProfilePicture,
+    messageContent: newUserContent,
+    messageTime: new Date(),
+    messageId: Date.now().toString(), // TODO: Change
+  } as ChatMessageObject;
 
-    return inputObject;
-}
+  return inputObject;
+};
 
 export default createChatObject;

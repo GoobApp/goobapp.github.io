@@ -19,9 +19,9 @@
   grid-row: 2;
 
   width: 100%;
-  
+
   justify-self: center;
-  
+
   word-break: break-word;
   border-radius: 10px;
 
@@ -63,7 +63,10 @@
   align-items: center;
   overflow: hidden;
 
-  grid-column: 1 span / 3;
+  grid-column: 1 / span 3;
+  justify-self: center;
+  width: 95%;
+
   grid-row: 1;
 }
 
@@ -79,57 +82,13 @@
 
   grid-column-start: 2;
   grid-column-end: 3;
-  
+
   grid-row: 2;
 
   border-radius: 10px;
 }
 
-.chat-input-form {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row: 3;
-
-  gap: 25px;
-
-  display: flex;
-  place-self: center;
-  place-items: center;
-  place-content: center;
-
-  width: 100%;
-}
-
-.chat-input {
-  flex: 1;
-
-  font-size: 1rem;
-  outline-style: none;
-  border-radius: 100px;
-  background-color: var(--primary-color);
-
-  padding-left: 15px;
-  padding-right: 15px;
-
-  box-shadow: 0px 0px 0px var(--secondary-color);
-  transition: box-shadow 0.25s ease-in-out;
-  min-height: 75px
-}
-
-.chat-send-button,
-.chat-extras-button {
-  font-size: 1rem;
-
-  min-width: 75px;
-  max-width: 75px;
-  min-height: 75px;
-  max-height: 75px;
-  border-radius: 100%;
-
-  background-color: var(--primary-color);
-}
-
-.profile-picture {
+.profile-picture-button {
   grid-column: 2;
   margin: 0;
   width: 50px;
@@ -137,6 +96,16 @@
   background-color: gray;
   aspect-ratio: 1/1;
   border-radius: 100%;
-  justify-self: flex-end;
+  justify-self: end;
   margin-left: auto;
+}
+
+.profile-picture-image {
+  place-self: center;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
 }

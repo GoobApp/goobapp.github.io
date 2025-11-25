@@ -6,6 +6,7 @@
   "homepage": "https://goobapp.org",
   "scripts": {
     "dev": "vite",
+    "dev-public": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

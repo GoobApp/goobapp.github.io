@@ -1,3 +1,3 @@
 export default interface ChatInputRef {
-    getInputValueToSend: () => string;
+  getInputValueToSend: () => string;
 }

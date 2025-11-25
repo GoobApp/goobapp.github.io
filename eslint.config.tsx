@@ -9,11 +9,12 @@ export default defineConfig([
   pluginReact.configs.flat.recommended,
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    plugins: { js }, extends: ["js/recommended"],
+    plugins: { js },
+    extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-    }
+    },
   },
 ]);

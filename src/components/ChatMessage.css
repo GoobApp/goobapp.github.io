@@ -29,17 +29,18 @@
 .chat-message-display-name {
   width: 100%;
   margin: 0;
-  font-size:100%;
+  font-size: 100%;
   grid-row: 2;
   grid-column: 2;
   font-weight: bold;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .chat-message-time {
   width: 100%;
   margin: 0;
-  font-size:50%;
+  font-size: 50%;
   grid-row: 2;
   grid-column: 3;
   align-self: center;
@@ -50,13 +51,18 @@
   margin: 0;
   grid-row: 3;
   grid-column: 2 / span 3;
-  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .chat-message-content-no-avatar {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   width: 100%;
   margin: 0;
   padding-left: 60px;
   grid-row: 2;
   grid-column: 1;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

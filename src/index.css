@@ -1,5 +1,4 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -30,6 +29,9 @@ body {
   min-height: 100vh;
   overflow: hidden;
   place-self: center;
+  color: var(--text-color);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: var(--page-bg-color);
 }
 
 h1 {
@@ -74,17 +76,11 @@ button:focus-visible {
   --secondary-color: rgb(144, 151, 84);
   --bg-color: rgb(48, 52, 47);
   --page-bg-color: rgb(33, 36, 33);
-  --text-color: white
-}
-
-body {
-  color: var(--text-color);
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  background-color: var(--page-bg-color);
+  --text-color: white;
 }
 
 ::placeholder {
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 /* Style the entire scrollbar */
@@ -95,7 +91,7 @@ body {
 
 /* Style the scrollbar track (the background) */
 ::-webkit-scrollbar-track {
-  background:rgb(48, 52, 47);
+  background: rgb(48, 52, 47);
   border-radius: 10px; /* Adjust to match your container's rounding */
 }
 
@@ -120,7 +116,8 @@ button {
   transition: box-shadow 0.25s ease-in-out;
 }
 
-button, input {
+button,
+input {
   color: var(--text-color);
   /* border: none;       */
   box-shadow: none;
