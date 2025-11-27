@@ -30,7 +30,7 @@ const SignupPanel = () => {
         options: {
           captchaToken,
           data: {
-            username: username,
+            name: username,
             picture: profilePicture.url,
           },
         },
