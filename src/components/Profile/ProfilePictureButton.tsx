@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "../App.css";
-import UserProfileObject from "../types/UserProfileObject";
+import "../../App.css";
+import UserProfileObject from "../../types/UserProfileObject";
 import ProfilePanel from "./ProfilePanel";
 
 const ProfilePictureButton = ({ profile }: { profile: UserProfileObject }) => {
@@ -11,7 +11,7 @@ const ProfilePictureButton = ({ profile }: { profile: UserProfileObject }) => {
 
   return (
     <div className="profile-picture-div">
-      <button className="profile-picture-div" onClick={handleClick}>
+      <button className="profile-picture-button" onClick={handleClick}>
         <img src={profile.userProfilePicture} className="profile-picture"></img>
       </button>
       {panelOpened && <ProfilePanel profile={profile}></ProfilePanel>}

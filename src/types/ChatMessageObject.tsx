@@ -1,6 +1,6 @@
 export default interface ChatMessage {
   userDisplayName: string;
-  userProfilePicture: string | null;
+  userProfilePicture: string;
   userID: string;
   messageContent: string;
   messageTime: Date;

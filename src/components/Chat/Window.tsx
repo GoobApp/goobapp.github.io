@@ -4,9 +4,9 @@ import {
   useLayoutEffect,
   useRef,
 } from "react";
-import "../App.css";
-import ChatMessageObject from "../types/ChatMessageObject";
-import MessageDisplay from "./ChatMessage";
+import "../../App.css";
+import ChatMessageObject from "../../types/ChatMessageObject";
+import MessageDisplay from "./Message";
 
 type ChatWindowProps = {
   messages: ChatMessageObject[];
@@ -82,6 +82,7 @@ const ChatWindow = forwardRef<ChatWindowRef, ChatWindowProps>((props, ref) => {
 
         return (
           <MessageDisplay
+            userID={message.userID}
             key={message.messageId}
             profilePicture={message.userProfilePicture}
             displayName={message.userDisplayName}

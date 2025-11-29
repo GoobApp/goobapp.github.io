@@ -1,10 +1,11 @@
-import "../App.css";
+import "../../App.css";
 
 const ChatUsersPanel = () => {
   return (
     <div id="chatUsersPanelContainer" className="chat-users-panel-container">
-      <button className="panel-button">Chat</button>
-      <button className="panel-button">Not Chat</button>
+      <p>Active users:</p>
+      <button className="panel-button">you</button>
+      <button className="panel-button">probably noone else</button>
     </div>
   );
 };

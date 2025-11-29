@@ -7,24 +7,27 @@ import {
   useRef,
   useState,
 } from "react";
-import "../App.css";
-import ChatExtrasButton from "./ChatExtrasButton";
-import "./ChatInput.css";
-import ChatSendButton from "./ChatSendButton";
+import "../../App.css";
+import ChatExtrasButton from "./ExtrasButton";
+import "./Input.css";
+import ChatSendButton from "./SendButton";
 
 const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
   // Wrap the component with forwardRef so the parent can pass a ref;  useImperativeHandle exposes methods to that ref
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLParagraphElement>(null);
   const [textAreaValue, setTextAreaValue] = useState(""); // useState is used to make React update stuff on the screen when something changes
+  const [isInputBlank, setIsInputBlank] = useState(true);
+  const maxLength: number = 1001;
 
-  const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value); // for some reason React makes setting vars a function with useState. probably because it needs to update the page
+  const onChange = (event: ChangeEvent<HTMLParagraphElement>) => {
+    setIsInputBlank(event.target.textContent == "");
+    setTextAreaValue(event.target.innerText); // for some reason React makes setting vars a function with useState. probably because it needs to update the page
   };
 
   const onSubmit = (event: FormEvent | KeyboardEvent) => {
     event.preventDefault();
-    if (textAreaValue.length <= 1001) {
-      if (textAreaValue.trim() != "") {
+    if (textAreaValue.length <= maxLength) {
+      if (!isInputBlank) {
         onSend(); // This will send the onSend function up to the parent
       }
     }
@@ -35,14 +38,32 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
     getInputValueToSend: () => {
       // This is one of these methods, and adding more is like adding to a dictionary. This one just returns the current value.
       if (!textAreaRef.current) return; // Typescript thing to ensure safety, otherwise error. Just makes sure inputRef is not null
-      textAreaRef.current.value = "";
+      textAreaRef.current.innerHTML = "<br>";
       setTextAreaValue("");
+      setIsInputBlank(true);
       return textAreaValue;
     },
   }));
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (document.activeElement) {
+        if (document.activeElement instanceof HTMLElement) {
+          let activeElement: HTMLElement = document.activeElement;
+          if (
+            activeElement instanceof HTMLInputElement ||
+            activeElement instanceof HTMLTextAreaElement ||
+            activeElement.isContentEditable
+          ) {
+            if (
+              document.activeElement.parentElement?.parentElement?.id !=
+              "chatInputForm"
+            )
+              return; // Don't refocus if something like an input is already focused!
+          }
+        }
+      }
+
       if (event.key == "Enter" && !event.shiftKey) {
         if (textAreaRef.current) {
           onSubmit(event);
@@ -51,6 +72,7 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
         event.preventDefault(); // Prevent the default beheivor of stuff (textarea, form, etc). In this case its for textarea
         return;
       }
+
       // This will focus the input box any time any character is pressed, as long as it's a valid character.
       const otherKeys = [
         "Shift",
@@ -85,16 +107,23 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
         event.ctrlKey ||
         event.metaKey ||
         otherKeys.includes(event.key)
-      )
+      ) {
         return; // Don't refocus if it's not a valid character
+      }
+
       if (document.activeElement !== textAreaRef.current) {
-        // Only refocus if it's not already focused
-        if (!textAreaRef.current) return; // Typescript thing to ensure safety, otherwise error. Just makes sure inputRef is not null
-        textAreaRef.current.focus();
-        textAreaRef.current.setSelectionRange(
-          textAreaRef.current.selectionEnd,
-          textAreaRef.current.selectionEnd
-        ); // FIXME: doesn't work yet; aims to reset the typing back to the final character instead of saving the previous selection
+        if (!textAreaRef.current)
+          // Only refocus if it's not already focused
+          return; // Typescript thing to ensure safety, otherwise error. Just makes sure inputRef is not null
+        textAreaRef.current.focus(); // Focus the text area
+        const range = document.createRange(); // Create a new range object
+        const selection = window.getSelection(); // Get the current selection object
+        range.selectNodeContents(textAreaRef.current); // Select the element (more advanced than that i think but who knows)
+        range.collapse(false); // Place the cursor at the end
+        selection?.removeAllRanges(); // Remove existing selections
+
+        // 7. Add the new range to the selection
+        selection?.addRange(range);
       }
     };
 
@@ -105,6 +134,12 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
     }; // Once everything is done and cleaning up, remove the event listener. Not a great garbage collection in react/js D:
   }, [textAreaValue]);
 
+  useEffect(() => {
+    if (textAreaRef.current?.innerText == "") {
+      textAreaRef.current.innerHTML = "<br>";
+    }
+  }, [textAreaRef]);
+
   return (
     <form
       className="chat-input-form"
@@ -113,19 +148,23 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
       autoComplete="off"
     >
       <ChatExtrasButton></ChatExtrasButton>
-      <span className="chat-input-div" role="textbox">
-        <textarea
-          contentEditable="true"
+      <div className="chat-input-div" role="textbox">
+        <div
+          contentEditable={"plaintext-only"}
           className="chat-input"
           id="chatInput"
-          placeholder="Type here..."
-          maxLength={1001}
           ref={textAreaRef}
-          onChange={onChange}
-        />
-        <p className="chat-input-char-limit">{textAreaValue.length}/1001</p>
-      </span>
-      <ChatSendButton onSend={onSend}></ChatSendButton>
+          onInput={onChange}
+        ></div>
+        {isInputBlank && <p className="chat-input-placeholder">Type here...</p>}
+        <p className="chat-input-char-limit">
+          {isInputBlank ? 0 : textAreaValue.length}/{maxLength}
+        </p>
+      </div>
+      <ChatSendButton
+        onSend={onSend}
+        disabled={textAreaValue.length > maxLength}
+      ></ChatSendButton>
     </form>
   );
 });

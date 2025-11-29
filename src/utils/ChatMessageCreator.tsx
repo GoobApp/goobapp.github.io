@@ -17,7 +17,7 @@ const createChatObject = ({
     userProfilePicture: newUserProfilePicture,
     messageContent: newUserContent,
     messageTime: new Date(),
-    messageId: Date.now().toString(), // TODO: Change
+    messageId: Date.now().toString(), // TODO: Change: automated by Supabase
   } as ChatMessageObject;
 
   return inputObject;

@@ -1,10 +1,12 @@
+import type { Session } from "@supabase/supabase-js";
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import ChatInput from "./components/ChatInput";
-import ChatUsersPanel from "./components/ChatUsersPanel";
-import ChatWindow from "./components/ChatWindow";
-import ProfileTopBar from "./components/ProfileTopBar";
-import SwitcherPanel from "./components/SwitcherPanel";
+import ChatInput from "./components/Chat/Input";
+import SwitcherPanel from "./components/Chat/UsersPanel";
+import ChatWindow from "./components/Chat/Window";
+import TopBar from "./components/Profile/TopBar";
+import { Client } from "./components/supabase/Client";
+import ChatUsersPanel from "./components/SwitcherPanel";
 import { socket } from "./socket";
 import ChatInputRef from "./types/ChatInputRef";
 import ChatMessageObject from "./types/ChatMessageObject";
@@ -19,44 +21,42 @@ const App = () => {
   const [userProfilePicture, setUserProfilePicture] = useState<string | null>(
     null
   );
-  const [clientUserID, setClientUserID] = useState<string>("0");
 
+  const [username, setUsername] = useState<string | null>(null);
+
+  const [clientUserID, setClientUserID] = useState<string>("0");
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
 
   useEffect(() => {
-    function onConnect() {
+    const onConnect = () => {
       console.log("Connected!");
       setIsConnected(true);
-    }
+    };
 
-    function onDisconnect() {
+    const onDisconnect = () => {
       setIsConnected(false);
-    }
+    };
 
-    function clientReceiveMessage(value: ChatMessageObject) {
+    const onRateLimited = () => {
+      // TODO: maybe add a ui message not just an alert
+      console.error("Rate limit exceeded:");
+      alert(`Please stop spamming :D`);
+    };
+
+    const clientReceiveMessage = (value: ChatMessageObject) => {
       addNewInput(value);
-    }
-
-    function clientReceiveUserID(value: string) {
-      setClientUserID(value);
-      setUserProfilePicture("https://picsum.photos/seed/" + value + "/512");
-    }
+    };
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("client receive message", clientReceiveMessage);
-    socket.on("get user id", clientReceiveUserID);
-    socket.on("rate limited", () => {
-      // TODO: maybe add a ui message not just an alert
-      console.error("Rate limit exceeded:");
-      alert(`Please stop spamming :D`);
-    });
+    socket.on("rate limited", onRateLimited);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("client receive message", clientReceiveMessage);
-      socket.off("rate limited", clientReceiveMessage);
+      socket.off("rate limited", onRateLimited);
     };
   }, []);
 
@@ -74,16 +74,18 @@ const App = () => {
   const handleMessageSent = () => {
     if (!chatInputRef.current) return;
     if (!clientUserID) return;
+    if (!username) return;
+
     const contentText: string = chatInputRef.current.getInputValueToSend();
     if (contentText.trim() != "") {
       // Make sure the content isn't blank!
       let message: ChatMessageObject = createChatObject({
-        newUserDisplayName: "not John Doe",
+        newUserDisplayName: username,
         newUserID: clientUserID,
         newUserProfilePicture: userProfilePicture,
         newMessageContent: contentText,
       });
-      socket.emit("message sent", message);
+      socket.emit("message sent", message, session);
       if (!chatWindowRef.current) return;
     }
   };
@@ -96,14 +98,56 @@ const App = () => {
     }
   }, [messages]);
 
+  const [session, setSession] = useState<Session | null>(null);
+
+  const retreiveUserData = async (session: Session) => {
+    console.log("retreiving");
+    const { data, error } = await Client.from("profiles")
+      .select("username, profile_image_url, user_id")
+      .eq("user_uuid", session.user.id)
+      .single();
+    if (error) {
+      console.error("Error fetching data:", error.message);
+      return;
+    }
+    setUsername(data.username);
+    setUserProfilePicture(data.profile_image_url);
+    setClientUserID(data.user_id);
+  };
+
+  useEffect(() => {
+    const { data: authListener } = Client.auth.onAuthStateChange(
+      (_event, session: Session | null) => {
+        if (session) {
+          setSession(session);
+
+          if (
+            _event == "INITIAL_SESSION" ||
+            "SIGNED_IN" ||
+            _event == "TOKEN_REFRESHED"
+          ) {
+            retreiveUserData(session);
+          }
+        } else {
+          setSession(null);
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <div className="wrapper">
-      <ProfileTopBar
+      <TopBar
         profile={createProfileObject({
-          newUserDisplayName: "John Doe",
+          newUserDisplayName: username,
           newUserProfilePicture: userProfilePicture,
         })}
-      ></ProfileTopBar>
+        session={session}
+      ></TopBar>
       <SwitcherPanel></SwitcherPanel>
       <ChatWindow messages={messages} ref={chatWindowRef}></ChatWindow>
       <ChatInput onSend={handleMessageSent} ref={chatInputRef}></ChatInput>

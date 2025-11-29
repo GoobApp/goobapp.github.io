@@ -4,7 +4,7 @@ const createProfileObject = ({
   newUserDisplayName,
   newUserProfilePicture,
 }: {
-  newUserDisplayName: string;
+  newUserDisplayName: string | null;
   newUserProfilePicture: string | null;
 }) => {
   let inputObject = {

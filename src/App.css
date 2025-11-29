@@ -1,9 +1,15 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 12fr 1fr;
   grid-template-rows: 1fr 15fr 1fr;
   height: 95vh;
-  width: 97vw;
+  width: 95vw;
   gap: 25px;
 }
 
@@ -28,6 +34,7 @@
   flex-direction: column;
 
   overflow-y: auto;
+  overflow-y: auto;
 }
 
 .panel-button {
@@ -37,13 +44,13 @@
 
 .chat-users-panel-container {
   transform-origin: left;
-  grid-column: 1;
+  grid-column: 3;
   gap: 25px;
 }
 
 .switcher-panel-container {
   transform-origin: right;
-  grid-column: 3;
+  grid-column: 1;
   gap: 5px;
 }
 

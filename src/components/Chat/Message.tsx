@@ -1,5 +1,5 @@
-import "../App.css";
-import "./ChatMessage.css";
+import "../../App.css";
+import "./Message.css";
 // Is this the worst code i've ever written? I would care but if it works it works
 const MessageDisplay = ({
   userID,

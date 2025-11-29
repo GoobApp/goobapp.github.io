@@ -1,0 +1,165 @@
+.profile-top-bar {
+  border-color: var(--secondary-color);
+  background-color: var(--bg-color);
+  border-width: 2px;
+  border-style: solid;
+  font-size: 1rem;
+  padding: 1em;
+
+  z-index: 2;
+
+  grid-row: 2;
+
+  height: 25px;
+
+  word-break: break-word;
+  border-radius: 100px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  grid-column: 1 / span 3;
+  justify-self: center;
+  width: 95%;
+
+  grid-row: 1;
+}
+
+.login-signup-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-self: end;
+  margin-left: auto;
+  gap: 5px;
+}
+
+.profile-picture-button {
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  justify-self: end;
+  margin-left: auto;
+  border-radius: 100%;
+  border: 0px;
+}
+
+.profile-picture-div {
+  position: relative;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  justify-self: end;
+  margin-left: auto;
+  border-radius: 100%;
+  border: 0px;
+}
+
+.profile-picture {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+}
+
+.profile-panel-div {
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  background-color: var(--bg-color);
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 50px;
+  box-shadow: 0px 0px 10px var(--secondary-color);
+}
+
+.login-signup-button {
+  position: relative;
+  width: auto;
+}
+
+.profile-panel-username {
+  font-weight: bold;
+  font-size: 30px;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.error-message {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+
+.password-error-text {
+  position: initial;
+  font-size: 10px;
+  text-align: left;
+  flex: 1;
+  transform: translateY(-15px);
+  font-style: italic;
+  color: red;
+}
+
+.warning-text {
+  font-size: 10px;
+  text-align: left;
+  flex: 1;
+  transform: translateY(-15px);
+  font-style: italic;
+  color: rgb(200, 0, 0);
+}
+
+.signup-panel-form,
+.login-panel-form {
+  position: absolute;
+  right: 25px;
+  top: 75px;
+  background-color: var(--bg-color);
+  width: 250px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 50px;
+  box-shadow: 0px 0px 10px var(--secondary-color);
+}
+
+.login-signup-input {
+  margin: 0;
+  flex: 1;
+  height: 30px;
+  justify-self: end;
+  margin-left: auto;
+  flex-basis: 100%;
+  padding: 10px;
+}
+
+.profile-panel-profile-picture {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  border: 3px;
+  border-style: solid;
+  border-color: var(--secondary-color);
+  width: 150px;
+  height: 150px;
+  background-color: rgba(128, 128, 128, 0);
+}
+
+.login-signup-panel-divider {
+  flex-basis: 100%;
+}
