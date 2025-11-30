@@ -39,6 +39,7 @@ h1 {
   line-height: 1.1;
 }
 
+.fullscreen-game,
 form,
 div {
   border-radius: var(--roundness);

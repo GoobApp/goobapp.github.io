@@ -1,12 +1,18 @@
+// Source - https://stackoverflow.com/a
+// Posted by Lucas Andrade, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-11-30, License - CC BY-SA 4.0
+
 import type { Session } from "@supabase/supabase-js";
 import { useEffect, useRef, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
+import GamesList from "./components/Chat/GamesList";
 import ChatInput from "./components/Chat/Input";
-import SwitcherPanel from "./components/Chat/UsersPanel";
+import ChatUsersPanel from "./components/Chat/UsersPanel";
 import ChatWindow from "./components/Chat/Window";
 import TopBar from "./components/Profile/TopBar";
 import { Client } from "./components/supabase/Client";
-import ChatUsersPanel from "./components/SwitcherPanel";
+import SwitcherPanel from "./components/SwitcherPanel";
 import { socket } from "./socket";
 import ChatInputRef from "./types/ChatInputRef";
 import ChatMessageObject from "./types/ChatMessageObject";
@@ -141,19 +147,64 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <TopBar
-        profile={createProfileObject({
-          newUserDisplayName: username,
-          newUserProfilePicture: userProfilePicture,
-        })}
-        session={session}
-      ></TopBar>
-      <SwitcherPanel></SwitcherPanel>
-      <ChatWindow messages={messages} ref={chatWindowRef}></ChatWindow>
-      <ChatInput onSend={handleMessageSent} ref={chatInputRef}></ChatInput>
-      <ChatUsersPanel></ChatUsersPanel>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ChatWindow messages={messages} ref={chatWindowRef}></ChatWindow>
+            }
+          ></Route>
+          <Route path="/games/*" element={<GamesList></GamesList>}></Route>
+          <Route
+            path="/plat/*"
+            element={
+              <iframe
+                src="https://supkittymeow.github.io/plat"
+                className="fullscreen-game"
+              ></iframe>
+            }
+          ></Route>
+          <Route
+            path="/br2/*"
+            element={
+              <iframe
+                src="https://supkittymeow.github.io/br2"
+                className="fullscreen-game"
+              ></iframe>
+            }
+          ></Route>
+          <Route
+            path="/br3/*"
+            element={
+              <iframe
+                src="https://supkittymeow.github.io/super_secret_banana_run_3_build_thing"
+                className="fullscreen-game"
+              ></iframe>
+            }
+          ></Route>
+          <Route
+            path="/cfp/*"
+            element={
+              <iframe
+                src="https://supkittymeow.github.io/cfp"
+                className="fullscreen-game"
+              ></iframe>
+            }
+          ></Route>
+        </Routes>
+        <TopBar
+          profile={createProfileObject({
+            newUserDisplayName: username,
+            newUserProfilePicture: userProfilePicture,
+          })}
+          session={session}
+        ></TopBar>
+        <SwitcherPanel></SwitcherPanel>
+        <ChatInput onSend={handleMessageSent} ref={chatInputRef}></ChatInput>
+        <ChatUsersPanel></ChatUsersPanel>
+      </BrowserRouter>
     </div>
   );
 };
-
 export default App;
