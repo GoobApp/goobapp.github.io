@@ -179,7 +179,6 @@ const App = () => {
     const { data: authListener } = Client.auth.onAuthStateChange(
       (_event, session: Session | null) => {
         setIsAuthLoading(false);
-        console.log(_event);
         if (session) {
           setSession(session);
           if (_event == "INITIAL_SESSION") {
