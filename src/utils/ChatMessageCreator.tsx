@@ -17,7 +17,7 @@ const createChatObject = ({
     userProfilePicture: newUserProfilePicture,
     messageContent: newUserContent,
     messageTime: new Date(),
-    messageId: Date.now().toString(), // This gets autoset by supabase but no reason not to set it also here (local testing)
+    messageId: Date.now(), // This gets autoset by supabase but no reason not to set it also here (local testing)
   } as ChatMessageObject;
 
   return inputObject;

@@ -79,10 +79,10 @@ const App = () => {
     };
   }, [profile.userID]);
 
-  useEffect(() => {
-    document.title =
-      unreadMessageCount == 0 ? "GoobApp" : `GoobApp (${unreadMessageCount})`;
-  }, [unreadMessageCount]);
+  // useEffect(() => {
+  //   document.title =
+  //     unreadMessageCount == 0 ? "GoobApp" : `GoobApp (${unreadMessageCount})`;
+  // }, [unreadMessageCount]);
 
   useEffect(() => {
     if (document.hasFocus()) {
