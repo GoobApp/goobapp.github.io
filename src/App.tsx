@@ -17,6 +17,7 @@ import createChatObject from "./utils/ChatMessageCreator";
 import createProfileObject from "./utils/UserProfileCreator";
 
 const App = () => {
+  const [session, setSession] = useState<Session | null>(null);
   const [unreadMessageCount, setUnreadMessageCount] = useState<number>(0);
   const [messages, setMessages] = useState<ChatMessageObject[]>([]);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
@@ -81,7 +82,7 @@ const App = () => {
         socket.disconnect();
       }
     };
-  }, [profile.userID]);
+  }, [session, isAuthLoading]);
 
   // useEffect(() => {
   //   document.title =
@@ -107,7 +108,7 @@ const App = () => {
           icon: img,
         }
       );
-      setUnreadMessageCount(unreadMessageCount + 1);
+      // setUnreadMessageCount(unreadMessageCount + 1);
     }
 
     newMessage.messageTime = new Date(newMessage.messageTime); // Websockets can't accept Dates, so they turn them into strings. This turns it back
@@ -148,8 +149,6 @@ const App = () => {
     }
   };
 
-  const [session, setSession] = useState<Session | null>(null);
-
   const retreiveUserData = async (session: Session) => {
     console.log("Retreiving user data...");
     const { data, error } = await Client.from("profiles")
@@ -183,13 +182,11 @@ const App = () => {
         console.log(_event);
         if (session) {
           setSession(session);
-          if (
-            _event == "INITIAL_SESSION" ||
-            _event == "SIGNED_IN" ||
-            _event == "TOKEN_REFRESHED"
-          ) {
+          if (_event == "INITIAL_SESSION") {
             retreiveUserData(session);
             retreiveRecentMessages();
+          } else if (_event == "TOKEN_REFRESHED") {
+            retreiveUserData(session);
           }
         } else {
           setSession(null);
