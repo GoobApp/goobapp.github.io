@@ -13,3 +13,38 @@
 
   grid-row: 2;
 }
+
+.logged-out-page {
+  border-color: var(--secondary-color);
+  background-color: var(--bg-color);
+  border-width: 2px;
+  border-style: solid;
+  font-size: 1rem;
+  padding: 1em;
+  overflow: hidden;
+  word-break: break-word;
+
+  grid-column-start: 2;
+  grid-column-end: 3;
+
+  grid-row: 2;
+}
+
+.github-link-container {
+  border: 2px solid;
+  border-color: var(--secondary-color);
+  padding: 15px;
+}
+
+.goofy-goober {
+  width: 150%;
+  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+@media screen and (max-width: 1000px) {
+  .other-page {
+    grid-column: 1 / span 3;
+  }
+}

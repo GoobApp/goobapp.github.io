@@ -4,6 +4,7 @@ import { createHashRouter, RouterProvider } from "react-router";
 import "./App.css";
 import ChatWindow from "./components/Chat/Window";
 import Layout from "./components/Layout";
+import ChatLoggedOutWindow from "./components/Pages/ChatLoggedOutWindow";
 import GamesList from "./components/Pages/GamesList";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
 import SettingsPage from "./components/Pages/SettingsPage";
@@ -54,7 +55,7 @@ const App = () => {
       });
     };
 
-    if (profile.userID && profile.userID !== "0") {
+    if (profile.userID && profile.userID != "0") {
       socket.on("connect", onConnect);
       socket.on("disconnect", onDisconnect);
       socket.on("client receive message", clientReceiveMessage);
@@ -207,17 +208,25 @@ const App = () => {
       children: [
         {
           index: true,
-          element: (
-            <ChatWindow
-              messages={messages}
-              sendMessage={handleMessageSent}
-              clientUserUUID={profile.userUUID}
-            ></ChatWindow>
-          ),
+          element:
+            profile.userID && profile.userID != "0" ? (
+              <ChatWindow
+                messages={messages}
+                sendMessage={handleMessageSent}
+                clientUserUUID={profile.userUUID}
+              ></ChatWindow>
+            ) : (
+              <ChatLoggedOutWindow></ChatLoggedOutWindow>
+            ),
         },
         {
           path: "/settings/*",
-          element: <SettingsPage profile={profile}></SettingsPage>,
+          element:
+            profile.userID && profile.userID != "0" ? (
+              <SettingsPage profile={profile}></SettingsPage>
+            ) : (
+              <ChatLoggedOutWindow></ChatLoggedOutWindow>
+            ),
         },
         {
           path: "/tos/*",
