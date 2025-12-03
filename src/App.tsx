@@ -170,6 +170,7 @@ const App = () => {
 
   const retreiveUserData = async (session: Session) => {
     console.log("Retreiving user data...");
+    if (!Client) return; 
     const { data, error } = await Client.from("profiles")
       .select("username, profile_image_url, user_id")
       .eq("user_uuid", session.user.id)
@@ -195,6 +196,11 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (!Client) {
+      setIsAuthLoading(false);
+      return;
+    };
+
     const { data: authListener } = Client.auth.onAuthStateChange(
       (_event, session: Session | null) => {
         setIsAuthLoading(false);
