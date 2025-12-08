@@ -8,9 +8,9 @@ body {
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
   grid-template-rows: 1fr 15fr min-content;
-  height: 95vh;
-  width: 95vw;
-  gap: 25px;
+  height: calc(100vh - 25px);
+  width: calc(100vw - 75px);
+  gap: 2%;
 }
 
 .chat-users-panel-container,
@@ -104,7 +104,8 @@ body {
 
 .chat-messages {
   overflow-x: hidden;
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   font-size: 1rem;
   padding: 1em;
   overflow-y: auto;
