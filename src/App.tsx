@@ -18,7 +18,6 @@ import ChatMessageObject from "./types/ChatMessageObject";
 import UserProfile from "./types/UserProfileObject";
 import createChatObject from "./utils/ChatMessageCreator";
 import createProfileObject from "./utils/UserProfileCreator";
-import goober from "./assets/images/goofy_goober.png"
 
 const App = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -42,6 +41,8 @@ const App = () => {
     const onConnect = () => {
       console.log("Connected!");
       setIsConnected(true);
+
+      socket.emit("add to active users list", profile);
     };
 
     const onDisconnect = () => {
@@ -73,9 +74,11 @@ const App = () => {
       }
     };
 
-    const onRecentMessagesRequestReceived = (value: ChatMessageObject[], users: UserProfile[] | null) => {
-      if (users)
-      {
+    const onRecentMessagesRequestReceived = (
+      value: ChatMessageObject[],
+      users: UserProfile[] | null
+    ) => {
+      if (users) {
         setActiveUsers(users);
       }
 
@@ -88,12 +91,13 @@ const App = () => {
       let newActiveUsers = activeUsers;
       const index = newActiveUsers.indexOf(value);
 
-      if (index > -1) { // js no if exists function :(
+      if (index > -1) {
+        // js no if exists function :(
         newActiveUsers.splice(index, 1);
       }
 
       newActiveUsers.push(value);
-      
+
       setActiveUsers(newActiveUsers);
     };
 
@@ -101,12 +105,13 @@ const App = () => {
       let newActiveUsers = activeUsers;
       const index = newActiveUsers.indexOf(value);
 
-      if (index > -1) { // js no if exists function :(
+      if (index > -1) {
+        // js no if exists function :(
         newActiveUsers.splice(index, 1);
       }
 
       setActiveUsers(newActiveUsers);
-    }
+    };
 
     if (!isAuthLoading && session) {
       socket.on("connect", onConnect);
