@@ -169,6 +169,7 @@ const App = () => {
   }, []);
 
   const addNewInput = (newMessage: ChatMessageObject) => {
+    console.log(newMessage);
     newMessage.messageTime = new Date(newMessage.messageTime); // Websockets can't accept Dates, so they turn them into strings. This turns it back
     setMessages((prevMessage) =>
       prevMessage.length < 200
@@ -256,6 +257,7 @@ const App = () => {
           } else if (_event == "TOKEN_REFRESHED") {
             retrieveUserData(session);
             retrieveActiveUsers();
+            socket.emit("add to active users list", profile); // bc it disconnects you need to readd to active list
           }
         } else {
           setSession(null);
