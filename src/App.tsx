@@ -92,28 +92,33 @@ const App = () => {
 
     const onAddActiveUser = (value: UserProfile) => {
       console.log("New user joined!");
-      const newActiveUsers = activeUsers.slice();
 
-      newActiveUsers.forEach((element, index) => {
-        if (element.userUUID == value.userUUID) {
-          newActiveUsers[index] = value;
-          return;
-        }
+      setActiveUsers((prevActiveUsers) => {
+        const newActiveUsers = prevActiveUsers.slice();
+
+        newActiveUsers.forEach((element, index) => {
+          if (element.userUUID == value.userUUID) {
+            newActiveUsers[index] = value;
+            return newActiveUsers;
+          }
+        });
+
+        newActiveUsers.push(value);
+        return newActiveUsers;
       });
-      newActiveUsers.push(value);
-
-      setActiveUsers(newActiveUsers);
     };
 
     const onRemoveActiveUser = (value: UserProfile) => {
       console.log("User left :(");
-      const newActiveUsers = activeUsers.slice();
-
-      newActiveUsers.forEach((element, index) => {
-        if (element.userUUID == value.userUUID) {
-          delete newActiveUsers[index];
-          setActiveUsers(newActiveUsers);
-        }
+      setActiveUsers((prevActiveUsers) => {
+        const newActiveUsers = prevActiveUsers.slice();
+        newActiveUsers.forEach((element, index) => {
+          if (element.userUUID == value.userUUID) {
+            delete newActiveUsers[index];
+            return newActiveUsers;
+          }
+        });
+        return newActiveUsers;
       });
     };
 
