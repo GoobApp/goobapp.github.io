@@ -157,9 +157,9 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
           onInput={onChange}
         ></div>
         {isInputBlank && <p className="chat-input-placeholder">Type here...</p>}
-        <p className="chat-input-char-limit">
+        {/* <p className="chat-input-char-limit">
           {isInputBlank ? 0 : textAreaValue.length}/{maxLength}
-        </p>
+        </p> */}
       </div>
       <ChatSendButton
         onSend={onSend}

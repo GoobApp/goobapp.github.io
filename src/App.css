@@ -80,8 +80,7 @@ body {
   padding-top: 1em;
 
   font-size: 1rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   word-break: break-word;
 
   grid-column-start: 2;
@@ -89,33 +88,24 @@ body {
 
   grid-row: 2;
 
+  gap: 15px;
+
   display: grid;
   grid-template-rows: 1fr min-content;
-}
-
-chat-messages::-webkit-scrollbar-track {
-  background: var(--bg-light);
-  border-radius: var(--roundness);
-}
-
-chat-messages::-webkit-scrollbar-thumb {
-  background: var(--bg-dark);
-  border-radius: var(--roundness);
 }
 
 .chat-messages {
   background-color: var(--bg-dark);
   border-radius: 18px;
   overflow-x: hidden;
-  overflow-y: auto;
-  
-  min-width: 100%;
-  max-width: 100%;
+  overflow-y: scroll;
+
   font-size: 1rem;
 
   padding: 2em;
+
   box-sizing: border-box;
-  
+
   word-break: break-word;
 
   display: flex;
@@ -123,22 +113,21 @@ chat-messages::-webkit-scrollbar-thumb {
 }
 
 .chat-mini-window {
+  overflow: hidden;
+
   background-color: var(--bg);
   padding: 1em;
+
   box-sizing: border-box;
 
   grid-column: 3;
   grid-row: 2;
 
-  transform-origin: left;
-
   width: 100%;
 
+  gap: 15px;
+
   justify-self: center;
-
-  overflow-y: hidden;
-
-  word-break: break-word;
 
   display: grid;
   grid-template-rows: 1fr min-content;

@@ -18,11 +18,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
-  border-radius: var(--roundness);
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
+  background: var(--highlight);
+  border-radius: var(--roundness);
+}
+
+::-webkit-scrollbar-thumb:hover {
   background: var(--bg-light);
   border-radius: var(--roundness);
 }
