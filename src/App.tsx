@@ -41,7 +41,9 @@ const App = () => {
     const onConnect = () => {
       console.log("Connected!");
       setIsConnected(true);
-      socket.emit("add to active users list", profile);
+
+      if (profile.userUUID != null)
+        socket.emit("add to active users list", profile);
     };
 
     const onDisconnect = () => {
@@ -221,6 +223,7 @@ const App = () => {
     });
 
     setProfile(newProfile);
+    socket.emit("add to active users list", newProfile);
   };
 
   const retrieveRecentMessages = () => {
