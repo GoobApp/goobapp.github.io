@@ -6,7 +6,7 @@
 
 html,
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 100%;
 }
 
@@ -16,7 +16,7 @@ body {
   margin: 0;
   padding: 0;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 
   max-width: 100dvw;
   min-height: 0;
@@ -32,7 +32,7 @@ body {
 
   min-height: 0;
 
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 .chat-users-panel-container,
