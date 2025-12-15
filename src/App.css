@@ -10,6 +10,10 @@ body {
   grid-template-rows: 1fr 15fr min-content;
   width: 100vw;
   height: 98vh;
+  
+  width: 100dvw;
+  height: 98dvh;
+  
   margin: 0;
   padding: 0;
 }
