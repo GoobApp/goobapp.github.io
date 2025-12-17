@@ -102,8 +102,7 @@ const MessageDisplay = ({
     const ref = contentRef.current;
     if (!ref) return;
     socket.emit("edit message", message.messageId, ref.innerText);
-    ref.contentEditable = "false";
-    setIsEditing(false);
+    cancelEdit();
   };
 
   const cancelEdit = () => {
