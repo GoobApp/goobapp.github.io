@@ -216,7 +216,7 @@ const App = () => {
 
       // addNewInput(input);
 
-      socket.emit("message sent", input, session);
+      socket.emit("message sent", input);
       return;
     }
 
@@ -232,7 +232,7 @@ const App = () => {
         newIsEdited: false,
       });
 
-      socket.emit("message sent", message, session);
+      socket.emit("message sent", message);
     }
   };
 

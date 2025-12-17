@@ -113,6 +113,14 @@ const MessageDisplay = ({
     setIsEditing(false);
   };
 
+  const mouseOver = () => {
+    setShowHover(true);
+  };
+
+  const mouseLeave = () => {
+    setShowHover(false);
+  };
+
   return (
     <div
       className={
@@ -120,8 +128,8 @@ const MessageDisplay = ({
           ? "chat-message-container-container-hover"
           : "chat-message-container-container"
       }
-      onMouseOver={() => setShowHover(true)}
-      onMouseLeave={() => setShowHover(false)}
+      onMouseOver={mouseOver}
+      onMouseLeave={mouseLeave}
     >
       <div
         className={
@@ -153,6 +161,7 @@ const MessageDisplay = ({
                   : undefined,
               timeStyle: "short",
             })}
+            {message.isEdited && " (edited)"}
           </p>
         )}
         <pre className="chat-message-content" ref={contentRef}>
