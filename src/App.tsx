@@ -45,7 +45,6 @@ const App = () => {
     const onConnect = () => {
       console.log("Connected!");
 
-      socket.auth = { token: session?.access_token };
       setIsConnected(true);
 
       if (profile.userUUID != null) {
@@ -125,12 +124,11 @@ const App = () => {
     };
 
     const onMessageEdited = (messageId: number, messageContent: string) => {
-      console.log("edited");
       const messageIndex = messages.findIndex(
         (event) => event.messageId == messageId
       );
       if (messageIndex != -1) {
-        let newMessages = messages;
+        let newMessages = messages.slice();
 
         newMessages[messageIndex] = createChatObject({
           newUserDisplayName: messages[messageIndex].userDisplayName,
@@ -156,6 +154,7 @@ const App = () => {
       socket.on("remove active user", onRemoveActiveUser);
 
       if (!socket.connected) {
+        socket.auth = { token: session?.access_token };
         socket.connect();
       }
     } else {
@@ -177,7 +176,7 @@ const App = () => {
         socket.disconnect();
       }
     };
-  }, [session, isAuthLoading]);
+  }, [session, isAuthLoading, profile]);
 
   useEffect(() => {
     document.title =
