@@ -5,6 +5,7 @@
   display: flex;
   padding: 5px;
   width: 80%;
+  height: 50px;
   place-self: center;
   align-items: center;
   justify-content: center;
@@ -21,33 +22,34 @@
 
 .user-profile-picture {
   grid-column: 1;
-  margin: 0;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background-color: gray;
   aspect-ratio: 1/1;
   border-radius: 100%;
 }
 
 .username {
-  word-wrap: break-word;
-  grid-column: 2;
+  flex-basis: 100%;
+  text-align: start;
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: black;
 }
 
 .role {
-  white-space: normal;
-  overflow-wrap: normal;
-  word-break: normal;
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  flex-basis: 100px;
+
+  font-size: x-small;
   border-radius: 50px;
   padding: 5px;
   background-color: green;
   border: 1px solid lightgreen;
-}
-
-.image-role-div {
-  place-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
