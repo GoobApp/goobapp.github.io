@@ -23,6 +23,7 @@ const ProfilePanel = ({
   const navigate = useNavigate();
 
   const handleSettings = () => {
+    onClose();
     navigate("/settings", { viewTransition: true });
   };
 
