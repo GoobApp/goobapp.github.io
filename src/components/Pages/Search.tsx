@@ -64,7 +64,7 @@ const Search = () => {
         ></input>
       </form>
       {iframeSrc != "" && (
-        <iframe className="search-view" sandbox="" src={iframeSrc}></iframe>
+        <iframe className="search-view" src={iframeSrc}></iframe>
       )}
       {iframeSrc != "" && (
         <p>
