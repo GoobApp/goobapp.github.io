@@ -134,6 +134,27 @@ body {
   min-height: 0;
 }
 
+.ui-popup-container {
+  width: 100%;
+  overflow: auto;
+  background-color: var(--bg-dark);
+}
+
+.ui-popup-element {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+}
+
+.ui-popup-emoji {
+  aspect-ratio: 1 / 1;
+  height: 3em;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+
 .chat-mini-window {
   view-transition-name: chat-window;
   overflow: hidden;

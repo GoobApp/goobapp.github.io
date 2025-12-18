@@ -7,11 +7,8 @@ import goob from "../../assets/images/goofy_goober.png";
 import { socket } from "../../socket";
 import ChatMessage from "../../types/ChatMessageObject";
 import UserProfile from "../../types/UserProfileObject";
+import EmojiList from "../../types/EmojiList";
 import "./Message.css";
-
-interface EmojiDict {
-  [key: string]: string; // Keys are strings, values are strings
-}
 
 const MessageDisplay = ({
   message,
@@ -28,7 +25,7 @@ const MessageDisplay = ({
   const [isEditing, setIsEditing] = useState(false);
   const contentRef = useRef<HTMLPreElement>(null);
 
-  const emojis: EmojiDict = {
+  const emojis = {
     goob: goob,
     cfp_button: cfp_button,
     cfp_clicked: cfp_clicked,
@@ -45,12 +42,12 @@ const MessageDisplay = ({
   const styledContent = splitContent.map((item, index) => {
     if (item[0] === ":" && item[item.length - 1] === ":") {
       const emojiName = item.slice(1, item.length - 1);
-      if (emojiName in emojis) {
+      if (emojiName in EmojiList) {
         if (item === message.messageContent) {
           return (
             <img
               className="chat-message-content-emoji-big"
-              src={emojis[emojiName]}
+              src={EmojiList[emojiName]}
               key={index}
             ></img>
           );
@@ -59,7 +56,7 @@ const MessageDisplay = ({
         return (
           <img
             className="chat-message-content-emoji"
-            src={emojis[emojiName]}
+            src={EmojiList[emojiName]}
             key={index}
           ></img>
         );

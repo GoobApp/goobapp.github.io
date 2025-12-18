@@ -11,6 +11,9 @@ import "../../App.css";
 import ChatExtrasButton from "./ExtrasButton";
 import "./Input.css";
 import ChatSendButton from "./SendButton";
+import UIPopup from "../../utils/UIPopup";
+import EmojiList from "../../types/EmojiList";
+import createUIElement from "../../utils/UIElementCreator";
 
 const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
   // Wrap the component with forwardRef so the parent can pass a ref;  useImperativeHandle exposes methods to that ref
@@ -156,6 +159,26 @@ const ChatInput = forwardRef(({ onSend }: { onSend: () => void }, ref) => {
           ref={textAreaRef}
           onInput={onChange}
         ></div>
+        {/:[^_:\s]*$/.test(textAreaValue) && (
+          <UIPopup
+            elements={
+              Object.entries(EmojiList).map(([name, emoji]) => (
+                createUIElement({newEmoji: emoji, newName: name})
+              ))
+            }
+          ></UIPopup>
+        )
+        }
+        {/* {/:[^_:\s]*$/.test(textAreaValue) && (
+          <UIPopup
+            elements={
+              Object.entries(ActiveUsers).map(([name, profilePic]) => (
+                createUIElement({newEmoji: profilePic, newName: name})
+              ))
+            }
+          ></UIPopup>
+        )
+        } */}
         {isInputBlank && <p className="chat-input-placeholder">Type here...</p>}
       </div>
       <ChatSendButton
