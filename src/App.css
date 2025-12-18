@@ -38,7 +38,6 @@ body {
 .chat-users-panel-container,
 .switcher-panel-container {
   font-size: 1rem;
-  /* padding: 1em; */
   margin-top: 1em;
 
   grid-row: 2;

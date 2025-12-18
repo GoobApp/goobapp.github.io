@@ -77,7 +77,6 @@
   width: auto;
   height: auto;
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: column;
   place-items: center;
   gap: 10px;

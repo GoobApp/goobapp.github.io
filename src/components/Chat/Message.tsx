@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router";
 import "../../App.css";
 import cfp_button from "../../assets/images/emojis/cfp/button.png";
 import cfp_clicked from "../../assets/images/emojis/cfp/clicked.png";
@@ -33,8 +34,14 @@ const MessageDisplay = ({
     cfp_clicked: cfp_clicked,
   };
 
+  const urlSplitRegex =
+    /(\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  const urlTestRegex = /^(https?|ftp|file):\/\//i;
+
+  var emojiRegex = /(:[^:]+:)/;
   if (!message.messageContent && message.messageContent != "") return null;
-  const splitContent = message.messageContent.split(/(:[^:]+:)/);
+  let splitContent = message.messageContent.split(emojiRegex);
+
   const styledContent = splitContent.map((item, index) => {
     if (item[0] === ":" && item[item.length - 1] === ":") {
       const emojiName = item.slice(1, item.length - 1);
@@ -64,11 +71,26 @@ const MessageDisplay = ({
         );
       }
     } else {
-      return (
-        <div className="chat-message-content-text" key={index}>
-          {item}
-        </div>
-      );
+      const splitItem = item.split(urlSplitRegex);
+      return splitItem.map((itemItem, indexIndex) => {
+        if (urlTestRegex.test(itemItem)) {
+          return (
+            <Link
+              className="chat-message-content-text"
+              key={indexIndex}
+              to={`/extras/search/?q=${itemItem}`}
+            >
+              {itemItem}
+            </Link>
+          );
+        } else {
+          return (
+            <div className="chat-message-content-text" key={indexIndex}>
+              {itemItem}
+            </div>
+          );
+        }
+      });
     }
   });
 
