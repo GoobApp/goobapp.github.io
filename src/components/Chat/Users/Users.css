@@ -30,14 +30,24 @@
 }
 
 .username {
+  word-wrap: break-word;
   grid-column: 2;
   color: black;
 }
 
 .role {
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
   border-radius: 50px;
   padding: 5px;
   background-color: green;
   border: 1px solid lightgreen;
+}
+
+.image-role-div {
+  place-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

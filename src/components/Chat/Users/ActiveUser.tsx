@@ -27,17 +27,18 @@ const UserDisplay = ({
       className={isDarkBG ? "user-container-dark" : "user-container-light"}
       onClick={clickedUser}
     >
-      <img
-        src={userData.userProfilePicture}
-        alt=""
-        className="user-profile-picture"
-      />
+      <div className="image-role-div">
+        <img
+          src={userData.userProfilePicture}
+          alt=""
+          className="user-profile-picture"
+        />
+        {userData.userRole && <span className="role">{userData.userRole}</span>}
+      </div>
 
       <p className="username">
         {userData.userID == "0" ? "Deleted user" : userData.username}
       </p>
-
-      {userData.userRole && <span className="role">{userData.userRole}</span>}
     </button>
   );
 };
