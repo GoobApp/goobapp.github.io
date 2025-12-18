@@ -22,7 +22,7 @@ const TopBar = ({
           ? ""
           : location.pathname.replaceAll("/", " -> ")}
       </p>
-      {session ? (
+      {!import.meta.env.PROD || session ? (
         <ProfilePictureButton profile={profile}></ProfilePictureButton>
       ) : (
         <LoginSignupButtons></LoginSignupButtons>

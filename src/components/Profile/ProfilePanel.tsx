@@ -67,7 +67,7 @@ const ProfilePanel = ({
         className="profile-panel-profile-picture"
       ></img>
       {profile.userRole && (
-        <span className="user-panel-role">{profile.userRole}</span>
+        <span className="profile-panel-role">{profile.userRole}</span>
       )}
       <button className="profile-panel-button" onClick={handleSettings}>
         Settings
