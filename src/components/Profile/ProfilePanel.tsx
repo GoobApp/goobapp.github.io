@@ -16,7 +16,7 @@ const ProfilePanel = ({
   onClose,
 }: {
   profile: UserProfileObject;
-  onClose: FocusEventHandler<HTMLDivElement> | undefined;
+  onClose: () => void;
 }) => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +51,7 @@ const ProfilePanel = ({
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
     if (!panelRef.current?.contains(event.relatedTarget)) {
-      onClose?.(event);
+      onClose();
     }
   };
 

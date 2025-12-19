@@ -52,6 +52,7 @@ const MessageDisplay = ({
               className="chat-message-content-emoji-big"
               src={emojis[emojiName]}
               key={index}
+              loading="lazy"
             ></img>
           );
         }
@@ -61,6 +62,7 @@ const MessageDisplay = ({
             className="chat-message-content-emoji"
             src={emojis[emojiName]}
             key={index}
+            loading="lazy"
           ></img>
         );
       } else {

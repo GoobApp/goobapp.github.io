@@ -5,7 +5,7 @@ const TOS = () => {
     <div className="other-page">
       <h1>Terms of Service</h1>
 
-      <h4>Last updated: December 18, 2025</h4>
+      <h4>Last updated: December 19, 2025</h4>
 
       <h2>Binding Agreement</h2>
       <ul>
