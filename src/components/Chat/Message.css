@@ -135,6 +135,8 @@
 }
 
 .chat-message-image {
+  max-width: 300px;
+  max-height: 30=0px;
   display: inline-block;
   position: relative;
   border-radius: var(--roundness);
