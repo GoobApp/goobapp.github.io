@@ -64,7 +64,6 @@ const App = () => {
     };
 
     const clientReceiveMessage = (value: ChatMessageObject) => {
-      console.log("Message received!");
       addNewInput(value);
 
       if (session?.user.id == value.userUUID || document.hasFocus()) return;
@@ -226,7 +225,7 @@ const App = () => {
   };
 
   const handleMessageSent = (contentText: string) => {
-    if (!import.meta.env.PROD && !session?.user.id) {
+    if (!import.meta.env.PROD && !isConnected) {
       let input = createChatObject({
         newUserDisplayName: "Test User",
         newUserUUID: "1",
@@ -241,7 +240,10 @@ const App = () => {
       return;
     }
 
-    if (!profile.username) return;
+    if (!profile.userUUID) {
+      console.error("No userUUID!");
+      return;
+    }
 
     if (contentText.trim() != "") {
       // Make sure the content isn't blank!
