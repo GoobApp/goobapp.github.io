@@ -119,7 +119,8 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .other-page {
+  .other-page,
+  .search-page {
     grid-column: 1 / span 3;
   }
 }
